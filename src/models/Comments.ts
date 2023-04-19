@@ -1,14 +1,13 @@
-import { PostDB, PostModel } from "../interfaces/interfaces";
+import { CommentDB, CommentModel } from "../interfaces/interfaces";
 
-export class Post {
+export class Comment {
     constructor(
         private id: string,
         private content: string,
-        private comments: number,
         private likes: number,
         private dislikes: number,
         private createdAt: string,
-        private updatedAt: string,
+        private postId: string,
         private creatorId: string,
         private creatorName: string
     ) { }
@@ -34,13 +33,6 @@ export class Post {
 
     public setContent(value: string): void {
         this.content = value;
-    }
-    public getComments(): number {
-        return this.comments;
-    }
-
-    public setComments(value: number): void {
-        this.comments = value;
     }
     public getLikes(): number {
         return this.likes;
@@ -78,34 +70,32 @@ export class Post {
         this.createdAt = value;
     }
 
-    public getUpdatedAt(): string {
-        return this.updatedAt;
+    public getPostId(): string {
+        return this.postId;
     }
 
-    public setUpdatedAt(value: string): void {
-        this.updatedAt = value;
+    public setPostId(value: string): void {
+        this.postId = value;
     }
-    public toDBModel(): PostDB {
+    public toDBModel(): CommentDB {
         return {
             id: this.id,
             creator_id: this.creatorId,
             content: this.content,
-            comments: this.comments,
             likes: this.likes,
             dislikes: this.dislikes,
             created_at: this.createdAt,
-            updated_at: this.updatedAt,
+            post_id: this.postId,
         };
     }
-    public toBusinessModel(): PostModel {
+    public toBusinessModel(): CommentModel {
         return {
             id: this.id,
             content: this.content,
-            comments: this.comments,
             likes: this.likes,
             dislikes: this.dislikes,
             createdAt: this.createdAt,
-            updatedAt: this.updatedAt,
+            postId: this.postId,
             creator: {
                 id: this.creatorId,
                 name: this.creatorName

@@ -16,11 +16,6 @@ export interface LoginInputDTO {
 }
 
 export interface LoginOutputDTO {
-    message: string
-    token: string
-}
-
-export interface SignupOutputDTO {
     token: string;
 }
 
@@ -32,7 +27,7 @@ export type GetPostsOutputDTO = PostModel[];
 
 export interface CreatePostInputDTO {
     token: string | undefined;
-    content: unknown
+    content: unknown;
 }
 
 export interface EditPostInputDTO {
