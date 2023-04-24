@@ -87,7 +87,7 @@ export class UserBusiness {
         );
 
         if (!isPasswordCorrect) {
-            throw new Error("'password' incorreto");
+            throw new Error("Wrong Password");
         }
 
         const payload: TokenPayload = {
