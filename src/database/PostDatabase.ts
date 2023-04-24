@@ -1,13 +1,13 @@
 import { LikesDislikesDB, PostDB, PostWithCreatorsDB, POST_LIKE,} from "../interfaces/interfaces";
 import { BaseDatabase } from "./BaseDatabase";
 
-export class PostDataBase extends BaseDatabase {
+export class PostDatabase extends BaseDatabase {
     public static TABLE_POSTS = "posts";
     public static TABLE_LIKES_DISLIKES = "likes_dislikes";
 
     public getPostsWithCreators = async () => {
         const result: PostWithCreatorsDB[] = await BaseDatabase.connection(
-            PostDataBase.TABLE_POSTS
+            PostDatabase.TABLE_POSTS
         )
             .select(
                 "posts.id",
@@ -25,34 +25,34 @@ export class PostDataBase extends BaseDatabase {
     };
 
     public create = async (postDB: PostDB) => {
-        await BaseDatabase.connection(PostDataBase.TABLE_POSTS).insert(postDB);
+        await BaseDatabase.connection(PostDatabase.TABLE_POSTS).insert(postDB);
     };
 
     public findById = async (id: string) => {
-        const result: PostDB[] = await BaseDatabase.connection(PostDataBase.TABLE_POSTS)
+        const result: PostDB[] = await BaseDatabase.connection(PostDatabase.TABLE_POSTS)
             .select()
             .where({ id });
         return result[0];
     };
 
     public update = async (id: string, postDB: PostDB) => {
-        await BaseDatabase.connection(PostDataBase.TABLE_POSTS)
+        await BaseDatabase.connection(PostDatabase.TABLE_POSTS)
             .update(postDB)
             .where({ id });
     };
 
     public delete = async (id: string) => {
-        await BaseDatabase.connection(PostDataBase.TABLE_POSTS)
+        await BaseDatabase.connection(PostDatabase.TABLE_POSTS)
             .delete()
             .where({ id });
     };
 
     public likeOrDislikePost = async ( likeDislike: LikesDislikesDB ) => {
-        await BaseDatabase.connection(PostDataBase.TABLE_LIKES_DISLIKES).insert(likeDislike);
+        await BaseDatabase.connection(PostDatabase.TABLE_LIKES_DISLIKES).insert(likeDislike);
     };
 
     public findPostsWithCreatorById = async ( postId: string ) => {
-        const result: PostWithCreatorsDB[] = await BaseDatabase.connection(PostDataBase.TABLE_POSTS)
+        const result: PostWithCreatorsDB[] = await BaseDatabase.connection(PostDatabase.TABLE_POSTS)
             .select(
                 "posts.id",
                 "posts.creator_id",
@@ -70,7 +70,7 @@ export class PostDataBase extends BaseDatabase {
     };
 
     public findLikeDislike = async ( likeDislikeToFind: LikesDislikesDB ) => {
-        const [likeDislikeDB]: LikesDislikesDB[] = await BaseDatabase.connection(PostDataBase.TABLE_LIKES_DISLIKES)
+        const [likeDislikeDB]: LikesDislikesDB[] = await BaseDatabase.connection(PostDatabase.TABLE_LIKES_DISLIKES)
             .select()
             .where({
                 user_id: likeDislikeToFind.user_id,
@@ -86,7 +86,7 @@ export class PostDataBase extends BaseDatabase {
     };
 
     public removeLikeDislike = async ( likeDislikeDB: LikesDislikesDB ) => {
-        await BaseDatabase.connection(PostDataBase.TABLE_LIKES_DISLIKES)
+        await BaseDatabase.connection(PostDatabase.TABLE_LIKES_DISLIKES)
             .delete()
             .where({
                 user_id: likeDislikeDB.user_id,
@@ -95,7 +95,7 @@ export class PostDataBase extends BaseDatabase {
     };
 
     public updateLikeDislike = async ( likeDislikeDB: LikesDislikesDB ) => {
-        await BaseDatabase.connection(PostDataBase.TABLE_LIKES_DISLIKES)
+        await BaseDatabase.connection(PostDatabase.TABLE_LIKES_DISLIKES)
             .update(likeDislikeDB)
             .where({
                 user_id: likeDislikeDB.user_id,

@@ -23,7 +23,7 @@ CREATE TABLE
         FOREIGN KEY (creator_id) REFERENCES users(id)
     );
 
-DROP TABLE likes_dislikes_comments;
+SELECT * from users;
 
 CREATE TABLE
     likes_dislikes(
